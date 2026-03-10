@@ -1,0 +1,73 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and settings",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "User profile photo URL" },
+        "profile": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "age": { "type": "integer" },
+            "gender": { "type": "string", "enum": ["male", "female"] }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "HealthReport": {
+      "title": "Health Report",
+      "description": "Analyzed health checkup result",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "uid": { "type": "string", "description": "Owner UID" },
+        "date": { "type": "string", "format": "date-time" },
+        "overallScore": { "type": "integer" },
+        "summary": { "type": "string" },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "value": { "type": "number" },
+              "unit": { "type": "string" },
+              "referenceRange": { "type": "string" },
+              "status": { "type": "string", "enum": ["normal", "caution", "danger"] },
+              "description": { "type": "string" },
+              "category": { "type": "string" }
+            }
+          }
+        },
+        "actionPlan": {
+          "type": "object",
+          "properties": {
+            "diet": { "type": "array", "items": { "type": "string" } },
+            "exercise": { "type": "array", "items": { "type": "string" } },
+            "medical": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "uid", "date", "overallScore"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/health_reports/{reportId}": {
+      "schema": "HealthReport",
+      "description": "Health analysis reports"
+    }
+  }
+}
