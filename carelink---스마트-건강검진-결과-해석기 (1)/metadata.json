@@ -1,0 +1,7 @@
+{
+  "name": "CareLink - 스마트 건강검진 결과 해석기",
+  "description": "복잡한 건강검진 결과를 AI가 알기 쉽게 분석하고 맞춤형 건강 관리 계획을 제안하는 서비스입니다.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
